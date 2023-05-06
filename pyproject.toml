@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "BSfit"
+version = "0.0.1"
+description = "Curve fitting using Berzier"
+authors = ["Alberto Mittone <alberto.mittone@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/mittoalb/BSfit"
+repository = "https://github.com/mittoalb/BSfit"
+keywords = ["Surface fit", "image processing"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+fabio = "2022.12.1"
+
+[tool.poetry.scripts]
+rcorr = "ring_removal:main"
+
+[build-system]
+requires = ["poetry-core>=1.1.0"]
+build-backend = "poetry.core.masonry.api"

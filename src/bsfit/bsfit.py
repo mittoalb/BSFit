@@ -61,6 +61,7 @@ def main():
 	
 	for i in total:
 		#READ DATA
+		print("Processing", i,'\n')
 		data = fabio.open(i)
 
 		pointsx = []	
@@ -74,15 +75,15 @@ def main():
 
 
 		sy,sx = data.data.shape
-		print(sy,sx)
+		#print(sy,sx)
 		###############################################################################
 		#AUTOCROP
 
 
 
 		data_sobel = abs(ndimage.sobel(data.data))
-		print(np.max(data_sobel))
-		print(np.min(data_sobel))
+		#print(np.max(data_sobel))
+		#print(np.min(data_sobel))
 		data_sobel[data_sobel < np.max(data_sobel)*0.1 ] = 0.0
 		data_sobel[data_sobel != 0.0 ] = 1.0
 
@@ -93,7 +94,7 @@ def main():
 		last_y = (sy-next((i for i, x in enumerate(data.data[:,int(sx/2)][::-1]) if x), None)) - safe_margin
 
 		first_x = next((i for i, x in enumerate(data.data[int(sy/2),:]) if x), None) + safe_margin
-		last_x = (sy-next((i for i, x in enumerate(data.data[int(sy/2),:][::-1]) if x), None)) - safe_margin 
+		last_x = (sx-next((i for i, x in enumerate(data.data[int(sy/2),:][::-1]) if x), None)) - safe_margin 
 		#CROP THE DATA
 
 		first = max(first_y,first_x)

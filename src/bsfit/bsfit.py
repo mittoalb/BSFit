@@ -23,6 +23,8 @@ def main():
 	parser.add_argument('--dx', type=int, help='Bezier degree in x',default=4)
 	parser.add_argument('--fname', type=str, help='Input file name',default=None)
 	parser.add_argument('--show_plots', type=bool, help='Show plots and images',default=True)
+	parser.add_argument('--sfile', type=int, help='use a single file',default=False)
+	parser.add_argument('--verbose', type=int, help='Show extra info',default=0)
 	args = parser.parse_args()
 
 
@@ -87,6 +89,7 @@ def main():
 		data_sobel[data_sobel < np.max(data_sobel)*0.1 ] = 0.0
 		data_sobel[data_sobel != 0.0 ] = 1.0
 
+		ssy, ssx = data_sobel.shape
 		###############################################################################
 
 		#Get first and last non zero values
@@ -99,6 +102,23 @@ def main():
 
 		first = max(first_y,first_x)
 		last = min(last_y,last_x)
+
+		#CREATE OVELAPPING CROSS
+		
+		proc_mask = np.zeros_like(data_sobel)
+		
+		proc_mask[first:last,int(ssx/2)] = 1.0
+		proc_mask[int(ssy/2),first:last] = 1.0
+		
+		
+		print(np.max(data_sobel),np.min(data_sobel))
+		if args.verbose and args.show_plots:
+			plt.title('Sobel Plot')
+			plt.imshow(data_sobel[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin], \
+					     cmap='gray', vmin=0.0, vmax=0.1)
+			plt.imshow(proc_mask[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin], \
+					     cmap='YlOrBr', vmin=0.0, vmax=0.1, alpha=0.5)		     
+			plt.show()
 
 		data.data=data.data[first:last,first:last]
 

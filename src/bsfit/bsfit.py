@@ -23,7 +23,7 @@ def main():
 	parser.add_argument('--dx', type=int, help='Bezier degree in x',default=4)
 	parser.add_argument('--fname', type=str, help='Input file name',default=None)
 	parser.add_argument('--show_plots', type=bool, help='Show plots and images',default=True)
-	parser.add_argument('--sfile', type=int, help='use a single file',default=False)
+	#parser.add_argument('--sfile', type=int, help='use a single file',default=False)
 	parser.add_argument('--verbose', type=int, help='Show extra info',default=0)
 	args = parser.parse_args()
 

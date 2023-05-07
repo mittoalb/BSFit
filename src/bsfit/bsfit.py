@@ -106,18 +106,22 @@ def main():
 		#CREATE OVELAPPING CROSS
 		
 		proc_mask = np.zeros_like(data_sobel)
+		proc_mask += 0.1
 		
 		proc_mask[first:last,int(ssx/2)] = 1.0
 		proc_mask[int(ssy/2),first:last] = 1.0
 		
 		
-		print(np.max(data_sobel),np.min(data_sobel))
+		#print(np.max(data_sobel),np.min(data_sobel))
 		if args.verbose and args.show_plots:
-			plt.title('Sobel Plot')
-			plt.imshow(data_sobel[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin], \
-					     cmap='gray', vmin=0.0, vmax=0.1)
-			plt.imshow(proc_mask[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin], \
-					     cmap='YlOrBr', vmin=0.0, vmax=0.1, alpha=0.5)		     
+			plt.title('Sobel range')
+			plt.imshow(data.data[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin]*      \
+					proc_mask[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin], \
+					     cmap='gray', 
+					     vmin=np.min(data.data[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin]), 
+					     vmax=np.max(data.data[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin])*0.1)
+			#plt.imshow(proc_mask[first-safe_margin:last+safe_margin,first-safe_margin:last+safe_margin], \
+			#		     cmap='YlOrBr', vmin=1.0, vmax=1.0, alpha=0.5)		     
 			plt.show()
 
 		data.data=data.data[first:last,first:last]
